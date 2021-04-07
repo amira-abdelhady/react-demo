@@ -25,7 +25,7 @@ export default function Calc() {
         {numbers.map((n) => {
           return (
             <div className="col-4">
-              <Buttons bgColor="" color="" border="brown" text={n} key={n} onClick={this.tab} />
+              <Buttons bgColor="" color="" border="brown" text={n} key={n} />
             </div>
           );
         })}
