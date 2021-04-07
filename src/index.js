@@ -6,13 +6,15 @@ import Header from "./components/header/header";
 import reportWebVitals from "./reportWebVitals";
 import Section1 from "./components/section/section1";
 import Calc from "./components/calc/calc";
+import App from "./App";
 
 ReactDOM.render(
-  <div>
-    <Header />
+  <>
+    {/* <Header />
     <Section1 num={""}/>
-    <Calc/>
-  </div>,
+    <Calc/> */}
+    <App/>
+  </>,
   document.getElementById("root")
 );
 
