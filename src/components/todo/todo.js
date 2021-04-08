@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import  './todo.css'
 function Todo(props) {
   console.log("list", props.todos);
-  /* const complete=(name)=>{
+  /* // it's not enough we need to setState so remove implementation to parent and call it here by button
+  const complete=(name)=>{
       console.log(name);
        props.todos.map(task => {
         return name===task.name?task.isComplete=true:task.isComplete;

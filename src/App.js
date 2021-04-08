@@ -10,11 +10,11 @@ function App() {
     setLogin(true)
   }
   return (
-    <>
+    {/* // day2
+       <>
       <Login handleLogin={handleLogin}/>
       {isLogin && <Home/>}
-      <Home/>
-    </>
+    </> */}
   );
 }
 

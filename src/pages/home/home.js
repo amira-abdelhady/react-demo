@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Todo from "../../components/todo/todo";
 
 function Home() {
@@ -11,7 +11,6 @@ function Home() {
     todo.push(task);
     let newArr = todo.slice();
     setTodo(newArr);
-
     console.log("submit", todo, task);
   };
   const handleChange = (e) => {
@@ -19,6 +18,9 @@ function Home() {
     setTask({ name: e.target.value, isComplete: false });
     console.log(task);
   };
+  useEffect(() => {
+    console.log(task,'afffff');
+  }, [task])
   const complete = ( i) => {
     // console.log(name);
     const newArr = todo.slice();
@@ -37,13 +39,14 @@ function Home() {
 }
   return (
     <div className="container">
-      <form className="row" onSubmit={handleSubmit}>
+      <form className={"row"} onSubmit={handleSubmit}>
         <input
           type="task"
           name="task"
-          defaultValue={task.name}
+          value={task.name}
           onChange={handleChange}
         />
+       
         <div className="row">
           <button className="btn btn-success " type="submit">
             add
