@@ -19,7 +19,10 @@ export default function TodolistComponent(props) {
     // test.push(taskName)
 
     arr.push(taskName);
+    // this will take only the address in memory 
+    // let test = arr;
 
+    //so make this
     let test = arr.slice();
 
     setArr(test);
@@ -31,7 +34,7 @@ export default function TodolistComponent(props) {
 
   useEffect(() => {
     console.log("Hello from user Effect",arr);
-  }, []);
+  }, [arr]);
   return (
     <div className="w-50 bg-light mx-auto p-3 my-5">
       <div className="container">
