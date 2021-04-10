@@ -1,18 +1,25 @@
 import logo from "./logo.svg";
+import React, { Suspense } from "react";
 import "./App.css";
-import Login from "./pages/login/login";
-import Home from "./pages/home/home";
 import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Books from "./components/books/books";
-import BookDetails from "./components/books/bookD";
-import NotFound from "./pages/notFound/notFound";
-import Header from "./components/header/header";
-import LandingPage from "./pages/landingPage/landingPage";
-import Products from "./components/products/products";
-import ProductDetails from "./components/products/productD";
-import TodolistComponent from "./pages/test";
+import { counter } from "./store/actions";
+import { Provider } from "react-redux";
+import store from "./store";
 
+import Header from "./components/header/header";
+const LandingPage = React.lazy(() => import("./pages/landingPage/landingPage"));
+const Login = React.lazy(() => import("./pages/login/login"));
+const Home = React.lazy(() => import("./pages/home/home"));
+const NotFound = React.lazy(() => import("./pages/notFound/notFound"));
+const Books = React.lazy(() => import("./components/books/books"));
+const BookDetails = React.lazy(() => import("./components/books/bookD"));
+const Products = React.lazy(() => import("./components/products/products"));
+const ProductDetails = React.lazy(() =>
+  import("./components/products/productD")
+);
+const TodolistComponent = React.lazy(() => import("./pages/test"));
+const Counter = React.lazy(() => import("./components/counter/counter"));
 function App() {
   const [isLogin, setLogin] = useState(false);
   const handleLogin = () => {
@@ -23,21 +30,27 @@ function App() {
       {/* // day2
       <Login handleLogin={handleLogin}/>
       {isLogin && <Home/>}*/}
-      <Router>
-        <Header/>
-        <Switch>
-          <Route path="/" exact component={LandingPage} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/todo" exact component={Home} />
-          <Route path="/books/:id"  component={BookDetails} />
-          <Route path="/books"  component={Books} />
-          <Route path="/todo" exact component={Home} />
-          <Route path="/products/:id"  component={ProductDetails} />
-          <Route path="/products"  component={Products} />
-          <Route path="/t"  component={TodolistComponent} />
-          <Route path="*" exact component={NotFound} />
-        </Switch>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Header />
+          <Suspense fallback="loading ....">
+            <Switch>
+              <Route path="/" exact component={LandingPage} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/todo" exact component={Home} />
+              <Route path="/books/:id" component={BookDetails} />
+              <Route path="/books" component={Books} />
+              <Route path="/todo" exact component={Home} />
+              <Route path="/products/:id" component={ProductDetails} />
+              <Route path="/products" component={Products} />
+
+              <Route path="/count" component={Counter} />
+              {/* <Route path="/t" component={TodolistComponent} /> */}
+              <Route path="*" exact component={NotFound} />
+            </Switch>
+          </Suspense>
+        </Router>
+      </Provider>
     </>
   );
 }

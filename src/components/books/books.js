@@ -1,25 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,} from "react";
 import axios from "axios";
 import { axiosInstance } from "../../pages/network";
+import {  useDispatch,useSelector } from 'react-redux'
+import {addToCart,addItemsToCart} from "../../store/actions"
 //'https://www.googleapis.com/auth/books/v1/volumes'
 function Books() {
   const [data, setData] = useState(null);
-  useEffect(() => {
-    axiosInstance
-      .get("/volumes", {
-        params: {
-          q: "js",
-        },
-      })
-      .then((res) => {
-        setData(res.data.items);
-        console.log(res.data.items);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-  const [book, setbook] = useState();
+ 
+  const [book, setbook] = useState("");
   useEffect(() => {
     console.log(book);
   }, [book]);
@@ -47,6 +35,10 @@ function Books() {
     setbook(e.target.value);
     
   };
+  let cart=useSelector((state)=>state.cartLength.cart)
+  let items=useSelector((state)=>state.cartLength.items)
+console.log(items);
+  const disptch=useDispatch();
   return (
     <>
       <div className="container  mt-3">
@@ -64,7 +56,11 @@ function Books() {
         {data ? (
           data.map((d, i) => {
             return (
-              <div className="col-3" key={i}>
+              <div className="col-3" key={i} onClick={()=>{
+                disptch(addToCart(++cart))                
+                disptch(addItemsToCart(d.volumeInfo.title))
+
+            }}>
               <div className="card  mt-3">
                 <div className=" card-body"> {d.volumeInfo.title}</div>
                 <img src={d.volumeInfo.imageLinks?d.volumeInfo.imageLinks.smallThumbnail:""} style={{maxWidth:"200px",maxHeight:"200px"}}/>
@@ -73,7 +69,7 @@ function Books() {
             );
           })
         ) : (
-          <div>...loading</div>
+          <div className="container row">search fro a book ...</div>
         )}
       </div>
     </>
