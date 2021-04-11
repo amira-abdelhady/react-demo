@@ -58,7 +58,7 @@ console.log(items);
             return (
               <div className="col-3" key={i} onClick={()=>{
                 disptch(addToCart(++cart))                
-                disptch(addItemsToCart(d.volumeInfo.title))
+                disptch(addItemsToCart(d.volumeInfo))
 
             }}>
               <div className="card  mt-3">

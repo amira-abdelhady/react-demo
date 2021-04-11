@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {  useSelector } from "react-redux";
+  import CounterContext from '../../counterContext'
 function Header() {
+    let {counter}=useContext(CounterContext)
   let c=useSelector((state)=>state.count)
   let cart=useSelector((state)=>state.cartLength.cart)
-  console.log(cart,"cccc");
+  console.log(counter,"cccc");
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Navbar.Brand>React-Bootstrap</Navbar.Brand>
@@ -17,9 +19,14 @@ function Header() {
           </Nav.Link>
           <Nav.Link as={Link} className="nav-link" to="/products">products
           </Nav.Link>
+
           <Nav.Link as={Link} className="nav-link" to="/books">books
           </Nav.Link>
           <Nav.Link as={Link} className="nav-link text-success" to="/count">counter {c}
+          </Nav.Link>
+          <Nav.Link as={Link} className="nav-link" to="/productsT">products with thunk
+          </Nav.Link>
+          <Nav.Link as={Link} className="nav-link text-danger" to="/C">counter with context {counter}
           </Nav.Link>
         </Nav>
         <Nav>

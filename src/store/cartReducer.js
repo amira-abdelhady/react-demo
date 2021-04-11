@@ -5,9 +5,10 @@ export const cartReducer=(state={cart:0,items:[]},action)=>{
                 ...state,
                 cart:action.payload}
     case "ADD_ITEMS_TO_CART":
+        state.items.push(action.payload)
         return {
             ...state,
-            items:state.items.concat(action.payload)
+            items:[...state.items]
         }
         default:
             return state

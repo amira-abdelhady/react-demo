@@ -11,7 +11,7 @@ export default function Counter() {
     }, [c])
     return (
         <div className="container">
-            {/* counter {c} */}
+            counter {c}
             <div className="row mt-3">
             <button className="btn btn-success mr-3" onClick={()=>{
                 disptch(icreaseCounter(++c))

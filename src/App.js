@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import Header from "./components/header/header";
+import CounterContextCom from "./components/context/counterContext";
+import { CounterContextProvider } from "./counterContext";
 const LandingPage = React.lazy(() => import("./pages/landingPage/landingPage"));
 const Login = React.lazy(() => import("./pages/login/login"));
 const Home = React.lazy(() => import("./pages/home/home"));
@@ -15,13 +17,15 @@ const NotFound = React.lazy(() => import("./pages/notFound/notFound"));
 const Books = React.lazy(() => import("./components/books/books"));
 const BookDetails = React.lazy(() => import("./components/books/bookD"));
 const Products = React.lazy(() => import("./components/products/products"));
+const ProductsThunk = React.lazy(() => import("./components/products/productsThunk"));
 const ProductDetails = React.lazy(() =>
   import("./components/products/productD")
 );
-const TodolistComponent = React.lazy(() => import("./pages/test"));
 const Counter = React.lazy(() => import("./components/counter/counter"));
+
 function App() {
   const [isLogin, setLogin] = useState(false);
+  const [counter, setCounter] = useState(12);
   const handleLogin = () => {
     setLogin(true);
   };
@@ -31,6 +35,7 @@ function App() {
       <Login handleLogin={handleLogin}/>
       {isLogin && <Home/>}*/}
       <Provider store={store}>
+        <CounterContextProvider value={{counter,setCounter}}>
         <Router>
           <Header />
           <Suspense fallback="loading ....">
@@ -43,13 +48,15 @@ function App() {
               <Route path="/todo" exact component={Home} />
               <Route path="/products/:id" component={ProductDetails} />
               <Route path="/products" component={Products} />
+              <Route path="/productsT" component={ProductsThunk} />
 
-              <Route path="/count" component={Counter} />
-              {/* <Route path="/t" component={TodolistComponent} /> */}
+              <Route path="/count" exact component={Counter} />
+              <Route path="/C" exact component={CounterContextCom} />
               <Route path="*" exact component={NotFound} />
             </Switch>
           </Suspense>
         </Router>
+        </CounterContextProvider>
       </Provider>
     </>
   );
