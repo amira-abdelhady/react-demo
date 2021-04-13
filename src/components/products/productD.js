@@ -13,7 +13,6 @@ export default function ProductDetails(props) {
         .catch((err)=>{
             console.log(err);
         }) */
-        
     },[])
     const renderData=()=>{
         return(
